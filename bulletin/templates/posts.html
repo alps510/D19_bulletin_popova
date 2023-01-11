@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if posts %}
+       <table>
+           <tr>
+
+               <td><strong>Заголовок </strong></td>
+               <td><strong>Дата</strong></td>
+           </tr>
+           {% for post in posts %}
+           <tr style="text-align: left;">
+               <td>{{ post.title }}</td>
+               <td>{{ post.date|date:'d.m.y h:m' }}</td>
+           </tr>
+           {% endfor %}
+       </table>
+   {% else %}
+
+       <h2>Объявлений нет!</h2>
+   {% endif %}
+</body>
+</html>

@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+
+{% block content %}
+<h2>Страница авторизованного пользователя {{request.user.username}}</h2>
+<div> Здесь может содержаться персональная информация для каждого пользователя </div>
+
+<button> <a href="sign/logout/">Выйти</a> </button>
+
+<form action="/posts/subscribe/" method="POST">
+    {% csrf_token %}
+   <p><input type="checkbox" name="subscribe" value="True" > Оформить рассылку новостей</p>
+   <p><button type="submit">Отправить</button></p>
+  </form>
+{% endblock %}

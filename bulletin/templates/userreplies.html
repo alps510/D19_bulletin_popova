@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="" method="get">
+       {{ filterset.form.as_p }}
+       <input type="submit" value="Найти" />
+   </form>
+    {% if userreplies %}
+       <table>
+           <tr>
+
+               <td><strong>Автор </strong></td>
+               <td><strong>Дата</strong></td>
+               <td><strong>Содержание</strong></td>
+
+           </tr>
+           {% for reply in userreplies %}
+           <tr style="text-align: left;">
+               <td>{{ reply.user.username }}</td>
+               <td>{{ reply.date|date:'d.m.y h:m' }}</td>
+               <td>{{ reply.content|truncatechars:50 }}</td>
+               <td><form method="POST" action="change_status">
+                   {% csrf_token %}
+                          <input type="hidden" name="id" value={{reply.id}}>
+                          {% if reply.status == True %}
+                    <input type="submit" value="Отклонить">
+                    {%else%}
+                   <input type="submit" value="Принять отклик"}>
+                    {% endif %}
+                   </form>
+               </td>
+               <td><form method="POST" action="{{reply.id}}/delete_reply">
+                   {% csrf_token %}
+                          <input type="hidden" name="id" value={{reply.id}}>
+                    <input type="submit" value="Удалить">
+                   </form>
+               </td>
+           </tr>
+           {% endfor %}
+       </table>
+   {% else %}
+
+       <h2>Откликов нет!</h2>
+   {% endif %}
+</body>
+</html>

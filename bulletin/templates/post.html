@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr><td><strong>{{ post.title }}</strong></td></h1></tr>
+    <tr><td>{{ post.date|date:'d.m.y'}}</td></tr>
+    <tr><td>{{ post.type }}</td></tr>
+    <tr><td>{{ post.content|safe }}</td></tr>
+    <tr><td>{{ post.user }}</td></tr>
+</table>
+<p>
+<form  action="replycreate" method="post">{% csrf_token %}
+    {{ replyform.as_p }}
+    <input type="submit" value="Save">
+</form>
+{% if postreplies %}
+       <table>
+           <tr>
+               <td><strong>Дата</strong></td>
+               <td><strong>Отклик</strong></td>
+
+           </tr>
+           {% for reply in postreplies %}
+           <tr style="text-align: left;">
+               <td>{{ reply.date|date:'d.m.y h:m' }}</td>
+               <td>{{ reply.content|truncatechars:50 }}</td>
+           </tr>
+           {% endfor %}
+       </table>
+   {% else %}
+
+       <h2>Откликов нет!</h2>
+   {% endif %}
+</body>
+</html>

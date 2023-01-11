@@ -1,0 +1,20 @@
+{% extends "account/base.html" %}
+{% block head_title %}Enter your code{% endblock %}
+
+{% block content %}
+
+<h1>Email has been sent with this code</h1>
+
+<form class="login" method="POST" action="{% url 'codeview' %}">{% csrf_token %}
+  <input type="text" name="username" value='username'>
+  <input type="text" name="code" value='code'>
+
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <p><a class="button secondaryAction" href="http://127.0.0.1:8000/accounts/login">Send code one more time</a></p>
+
+  <button class="primaryAction" type="submit">Sign In</button>
+</form>
+
+{% endblock %}
